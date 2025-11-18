@@ -20,4 +20,13 @@ public class SortingUtils {
         System.arraycopy(arr, 0, copia, 0, arr.length);
         return copia;
     }
+
+    //Verificar q el arreglo no este vaio
+    public static boolean inEmpty(int[] vec) {
+        if (vec.length == 0) {
+            System.out.println("Arreglo Vacio\n");
+            return true;
+        }
+        return false;
+    }
 }

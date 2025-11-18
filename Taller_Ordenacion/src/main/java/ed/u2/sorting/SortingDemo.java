@@ -1,5 +1,6 @@
 package ed.u2.sorting;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class SortingDemo {
@@ -18,7 +19,9 @@ public class SortingDemo {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        while (true) {
+        boolean continuar = true;
+
+        while (continuar) {
             System.out.println("[--------MENU PARA LA ORDENACION --------]");
             System.out.println("1. InsertionSort");
             System.out.println("2. SelectionSort");
@@ -26,16 +29,35 @@ public class SortingDemo {
             System.out.println("4. Ejecutar los tres");
             System.out.println("5. Salir");
             System.out.print("Elige una opción: ");
-            int opcion = sc.nextInt();
 
-            if (opcion == 5) break;
+            String opcion = sc.nextLine().trim();
 
+            // Validar opción del menú
+            if (!opcion.matches("[1-5]")) {
+                System.out.println("Opción inválida. Intente de nuevo.\n");
+                continue; // repetir menú
+            }
+
+            if (opcion.equals("5")) {
+                continuar = false;
+                break;
+            }
+
+            // Elegir dataset
             System.out.println("\nElige un dataset:");
             for (int i = 0; i < NAMES.length; i++) {
-                System.out.println((i + 1) + ". Dataset " + NAMES[i]);
+                System.out.println((i + 1) + ". Dataset " + NAMES[i] + " " + Arrays.toString(DATASETS[i]));
             }
             System.out.print("Opción: ");
-            int d = sc.nextInt() - 1;
+
+            String ds = sc.nextLine().trim();
+
+            if (!ds.matches("[1-5]")) {
+                System.out.println("Dataset inválido. Intente de nuevo.\n");
+                continue;
+            }
+
+            int d = Integer.parseInt(ds) - 1;
 
             System.out.println("\n=== Dataset " + NAMES[d] + " ===");
             System.out.print("Original: ");
@@ -45,55 +67,69 @@ public class SortingDemo {
             int[] copia;
 
             switch (opcion) {
-                case 1:
+                case "1":
                     System.out.println("-- InsertionSort --");
-                    copia = SortingUtils.copyOf(DATASETS[d]); //copiara el arreglo original
-                    InsertionSort.sort(copia, true);
-                    System.out.print("Resultado: ");
-                    SortingUtils.printArray(copia);
-                    System.out.println("\n");
+                    copia = SortingUtils.copyOf(DATASETS[d]);
+                    if (!SortingUtils.inEmpty(copia)) {
+                        InsertionSort.sort(copia, true);
+                        System.out.print("Resultado: ");
+                        SortingUtils.printArray(copia);
+                        System.out.println("\n");
+                    }
                     break;
 
-                case 2:
+                case "2":
                     System.out.println("-- SelectionSort --");
                     copia = SortingUtils.copyOf(DATASETS[d]);
-                    SelectionSort.sort(copia, true);
-                    System.out.print("Resultado: ");
-                    SortingUtils.printArray(copia);
-                    System.out.println("\n");
+                    if (!SortingUtils.inEmpty(copia)) {
+                        SelectionSort.sort(copia, true);
+                        System.out.print("Resultado: ");
+                        SortingUtils.printArray(copia);
+                        System.out.println("\n");
+                    }
                     break;
 
-                case 3:
+                case "3":
                     System.out.println("-- BubbleSort --");
                     copia = SortingUtils.copyOf(DATASETS[d]);
-                    BubbleSort.sort(copia, true);
-                    System.out.print("Resultado: ");
-                    SortingUtils.printArray(copia);
-                    System.out.println("\n");
+                    if (!SortingUtils.inEmpty(copia)) {
+                        BubbleSort.sort(copia, true);
+                        System.out.print("Resultado: ");
+                        SortingUtils.printArray(copia);
+                        System.out.println("\n");
+                    }
                     break;
 
-                case 4:
+                case "4":
                     ejecutarTodos(DATASETS[d]);
                     break;
             }
         }
+        sc.close();
     }
 
     //Va a dar todos los metodos de la Seleccion que hizo el usuario
     private static void ejecutarTodos(int[] original) {
         int[] a1 = SortingUtils.copyOf(original);
-        System.out.println("[-- InsertionSort --]");
-        InsertionSort.sort(a1, true);
-        System.out.println();
+        if (!SortingUtils.inEmpty(a1)) {
+            System.out.println("[-- InsertionSort --]");
+            InsertionSort.sort(a1, true);
+            System.out.println();
+        }
 
         int[] a2 = SortingUtils.copyOf(original);
-        System.out.println("[-- SelectionSort --]");
-        SelectionSort.sort(a2, true);
-        System.out.println();
+        if (!SortingUtils.inEmpty(a2)) {
+            System.out.println("[-- SelectionSort --]");
+            SelectionSort.sort(a2, true);
+            System.out.println();
+        }
 
         int[] a3 = SortingUtils.copyOf(original);
-        System.out.println("[-- BubbleSort --]");
-        BubbleSort.sort(a3, true);
-        System.out.println();
+        if (!SortingUtils.inEmpty(a3)) {
+            System.out.println("[-- BubbleSort --]");
+            BubbleSort.sort(a3, true);
+            System.out.println();
+        }
+
     }
 }

@@ -3,31 +3,29 @@ package ed.u2.sorting;
 // Aqui solo tomara el arreglo de donde esta y lo va a ordenar en la posicion que debe estar
 public final class InsertionSort {
 
-    private InsertionSort() {}
+    public static void sort(int[] vector, boolean show) {
 
-    public static void sort(int[] arreglo, boolean mostrar) {
+        for (int i = 1; i < vector.length; i++) {
 
-        for (int i = 1; i < arreglo.length; i++) {
-
-            int numeroActual = arreglo[i];
+            int currentNumber = vector[i];
             int j = i - 1;
 
-            if (mostrar) {
-                System.out.println("Colocando el número " + numeroActual + " donde debe ir...");
+            if (show) {
+                System.out.println("Colocando el número " + currentNumber + " donde debe ir...");
             }
 
             // Aqui movemos los números que son mayores hacia la derecha
-            while (j >= 0 && arreglo[j] > numeroActual) {
-                arreglo[j + 1] = arreglo[j];
+            while (j >= 0 && vector[j] > currentNumber) {
+                vector[j + 1] = vector[j];
                 j--;
             }
 
             // Aqui solo va hacer para ordenarlo donde va a quedar el numero
-            arreglo[j + 1] = numeroActual;
+            vector[j + 1] = currentNumber;
 
-            if (mostrar) {
-                System.out.print("Estado del arreglo: ");
-                SortingUtils.printArray(arreglo);
+            if (show) {
+                System.out.print("Estado del vector: ");
+                SortingUtils.printArray(vector);
                 System.out.println();
             }
         }

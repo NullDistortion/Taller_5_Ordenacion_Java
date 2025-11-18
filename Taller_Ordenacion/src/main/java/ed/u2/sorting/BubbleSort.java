@@ -3,43 +3,41 @@ package ed.u2.sorting;
 //Aqui se van a comparar de dos en dos y se van a ir arreglando
 public final class BubbleSort {
 
-    private BubbleSort() {}
+    public static void sort(int[] vector, boolean show) {
 
-    public static void sort(int[] arreglo, boolean mostrar) {
+        for (int trace = 0; trace < vector.length - 1; trace++) {
 
-        for (int pasada = 0; pasada < arreglo.length - 1; pasada++) {
+            boolean change = false;
 
-            boolean huboCambio = false;
-
-            if (mostrar) {
-                System.out.println("Pasada " + (pasada + 1) + ": revision de numeros...");
+            if (show) {
+                System.out.println("Pasada " + (trace + 1) + ": revision de numeros...");
             }
 
-            for (int i = 0; i < arreglo.length - 1 - pasada; i++) {
+            for (int i = 0; i < vector.length - 1 - trace; i++) {
 
-                if (arreglo[i] > arreglo[i + 1]) {
+                if (vector[i] > vector[i + 1]) {
 
-                    if (mostrar) {
-                        System.out.println("Intercambio " + arreglo[i] +
-                                " con " + arreglo[i + 1]);
+                    if (show) {
+                        System.out.println("Intercambio " + vector[i] +
+                                " con " + vector[i + 1]);
                     }
 
-                    int aux = arreglo[i];
-                    arreglo[i] = arreglo[i + 1];
-                    arreglo[i + 1] = aux;
+                    int aux = vector[i];
+                    vector[i] = vector[i + 1];
+                    vector[i + 1] = aux;
 
-                    huboCambio = true;
+                    change = true;
                 }
             }
 
-            if (mostrar) {
-                System.out.print("Estado del arreglo: ");
-                SortingUtils.printArray(arreglo);
+            if (show) {
+                System.out.print("Estado del vector: ");
+                SortingUtils.printArray(vector);
                 System.out.println();
             }
 
-            if (!huboCambio) {
-                if (mostrar) {
+            if (!change) {
+                if (show) {
                     System.out.println("El Dataset ya no tiene mas cambios");
                 }
                 break;
